@@ -1,3 +1,16 @@
+_G.ScriptToggles = {
+    Music = {
+        Enabled = true,
+        Set = function(state)
+            _G.ScriptToggles.Music.Enabled = (state == true)
+            print("Music is now " .. (_G.ScriptToggles.Music.Enabled and "ENABLED" or "DISABLED"))
+        end,
+        Toggle = function()
+            _G.ScriptToggles.Music.Set(not _G.ScriptToggles.Music.Enabled)
+        end
+    }
+}
+
 local Scripts = {
     Main = "https://raw.githubusercontent.com/setclipboard/scripts/refs/heads/8282282929281918181818292929292929292292222/Main.lua",
     Ult = "https://raw.githubusercontent.com/setclipboard/scripts/refs/heads/8282282929281918181818292929292929292292222/ult.lua",
