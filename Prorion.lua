@@ -498,6 +498,44 @@ function OrionLib:MakeWindow(WindowConfig)
 		MakeElement("Padding", 8, 0, 0, 8)
 	}), "Divider")
 
+-- ❶  place this just **before** the TabHolder block
+--     (i.e. above the code at L59‑L64):contentReference[oaicite:0]{index=0}
+local SearchBox      -- forward declaration so we can access it later
+
+local SearchFrame = AddThemeObject(SetChildren(
+    SetProps(MakeElement("RoundFrame", Color3.fromRGB(255,255,255), 0, 5), {
+        Size      = UDim2.new(1, -16, 0, 30),
+        Position  = UDim2.new(0, 8, 0, 8),
+        BackgroundTransparency = 0.8,
+    }), {
+        AddThemeObject(MakeElement("Stroke"), "Stroke"),
+        SearchBox = AddThemeObject(Create("TextBox", {
+            Size               = UDim2.new(1, -10, 1, 0),
+            Position           = UDim2.new(0, 5, 0, 0),
+            BackgroundTransparency = 1,
+            TextXAlignment     = Enum.TextXAlignment.Left,
+            PlaceholderText    = "Search tabs…",
+            Font               = Enum.Font.GothamSemibold,
+            TextSize           = 14,
+            ClearTextOnFocus   = false,
+        }), "Text")
+}), "Second")
+SearchFrame.Parent = WindowStuff   -- sits above everything else
+
+-- ❷  nudge the tab list down so it sits under the new bar
+TabHolder.Position = UDim2.new(0, 0, 0, 46)   -- 30px bar + 8px padding*2
+
+-- ❸  live‑filter tabs whenever the user types
+AddConnection(SearchBox:GetPropertyChangedSignal("Text"), function()
+    local q = SearchBox.Text:lower()
+    for _, tab in ipairs(TabHolder:GetChildren()) do
+        if tab:IsA("TextButton") then
+            local name = tab.Title.Text:lower()               -- defined at L45‑L50:contentReference[oaicite:1]{index=1}
+            tab.Visible = (q == "" or name:find(q, 1, true))
+        end
+    end
+end)
+
 	AddConnection(TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 		TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
 	end)
