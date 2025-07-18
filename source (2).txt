@@ -21,8 +21,26 @@ local OrionLib = {
 			Text = Color3.fromRGB(240, 240, 240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
+                Light = {
+                        Main      = Color3.fromRGB(240, 240, 240),
+                        Second    = Color3.fromRGB(228, 228, 228),
+                        Stroke    = Color3.fromRGB(190, 190, 190),  
+                        Divider   = Color3.fromRGB(190, 190, 190),
+                        Text      = Color3.fromRGB(25, 25, 25),
+                        TextDark  = Color3.fromRGB(85, 85, 85)
+                }
+                OneDarkPro = {
+                        Main      = Color3.fromRGB(40, 44, 52),
+                        Second    = Color3.fromRGB(33, 37, 43), 
+                        Stroke    = Color3.fromRGB(59, 64, 72),  
+                        Divider   = Color3.fromRGB(59, 64, 72), 
+                        Text      = Color3.fromRGB(171, 178, 191),
+                        TextDark  = Color3.fromRGB(92, 99, 112)
+                }
+
+                
 	},
-	SelectedTheme = "Default",
+	SelectedTheme = "OneDarkPro",
 	Folder = nil,
 	SaveCfg = false
 }
